@@ -4,6 +4,11 @@ services:
     restart: always
     privileged: true
     network_mode: host
-    devices:
-      - /dev/input/js0
+    volumes:
+      - /dev:/dev
+    user: "${UID}:${GID}"
+    environment:
+      - HOME=/tmp
+    stdin_open: true
+    tty: true
     command: ros2 launch joy_to_cmd_vel joy_to_cmd_vel_launch.py
