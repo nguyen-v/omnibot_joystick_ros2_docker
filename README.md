@@ -1,29 +1,14 @@
-## Setting up dev rules
-First you can hotplug your sensor and look at which device it corresponds (```videox```)
-```bash
-v4l2-ctl --list-devices
-```
-Then, you can get more information about the device with:
-```bash
-udevadm info -a -n /dev/videox
-```
+## Requirements
+This docker container is meant to be used with the Logitech Attack 3 joystick. It was written to control an omnidirectional robot.
 
-You should modify the following fields in [thermal_camera.rules](scripts/thermal_camera.rules) to match the correct device. Normally it should match the device with index 0.
+## Controls
+The robot's linear velocity can be controlled with the joystick's handle (x-y velocity).
 
-```
-ATTRS{index}
-ATTRS{idVendor} 
-ATTRS{idProduct} 
-```
+The robot's angular velocity can be controlled with the left and right buttons situated at the top of the handle.
 
-```bash
-./scripts/create_udev_rules.sh
-```
+To change the robot's speed, press on the button behind the handle and at the same time, turn the dial at the base of the joystick.
 
-To delete the rules, you can run:
-```bash
-./scripts/delete_udev_rules.sh
-```
+The commands are sent as a `TwistStamped` message.
 
 ## Building the docker image
 ```bash
